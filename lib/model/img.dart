@@ -1,0 +1,3 @@
+class Imgages {
+  Map img = {};
+}
