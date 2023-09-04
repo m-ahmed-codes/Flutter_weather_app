@@ -1,39 +1,46 @@
-/* 
-// Example Usage
-Map<String, dynamic> map = jsonDecode(<myJSONString>);
-var myErrorClasdNode = ErrorClasd.fromJson(map);
-*/
+// To parse this JSON data, do
+//
+//     final error = errorFromJson(jsonString);
+
+import 'dart:convert';
+
+Error errorFromJson(String str) => Error.fromJson(json.decode(str));
+
+String errorToJson(Error data) => json.encode(data.toJson());
+
 class Error {
+  ErrorClass? error;
+
+  Error({
+    this.error,
+  });
+
+  factory Error.fromJson(Map<String, dynamic> json) => Error(
+        error:
+            json["error"] == null ? null : ErrorClass.fromJson(json["error"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "error": error?.toJson(),
+      };
+}
+
+class ErrorClass {
   int? code;
   String? message;
 
-  Error({this.code, this.message});
+  ErrorClass({
+    this.code,
+    this.message,
+  });
 
-  Error.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    message = json['message'];
-  }
+  factory ErrorClass.fromJson(Map<String, dynamic> json) => ErrorClass(
+        code: json["code"],
+        message: json["message"],
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['code'] = code;
-    data['message'] = message;
-    return data;
-  }
-}
-
-class ErrorClasd {
-  Error? error;
-
-  ErrorClasd({this.error});
-
-  ErrorClasd.fromJson(Map<String, dynamic> json) {
-    error = json['error'] != null ? Error?.fromJson(json['error']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['error'] = error!.toJson();
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "message": message,
+      };
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/main.dart';
 import 'package:weather_app/theme/themeManager.dart';
-import 'package:weather_app/theme/theme_constaint.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
